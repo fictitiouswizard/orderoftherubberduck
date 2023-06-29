@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1687996223745,
+      "tag": "0000_violet_quicksilver",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1687999087505,
+      "tag": "0001_bumpy_stature",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1687999224128,
+      "tag": "0002_empty_outlaw_kid",
+      "breakpoints": true
+    }
+  ]
+}
