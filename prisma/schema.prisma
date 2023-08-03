@@ -1,0 +1,164 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id            String @id @unique
+  session       Session[]
+  key           Key[]
+
+  username      String @unique
+  firstName     String
+  lastName      String
+  points        Int
+  booksDonated  Int
+  hoursVolunteered Int
+  dollarsDonated  Int
+  anonymous     Boolean @default(false)
+  active        Boolean @default(true)
+
+  createdLibrarySystems   LibrarySystem[]   @relation("user_createdLibrarySystems")
+  updatedLibrarySystems   LibrarySystem[]   @relation("user_updatedLibrarySystems")
+  createdLibraries        Library[]         @relation("user_createdLibrary")
+  updatedLibraries        Library[]         @relation("user_updatedLibrary")
+  createdQuests           Quest[]           @relation("user_createdQuests")
+  updatedQuests           Quest[]           @relation("user_updatedQuests")
+  createdBounties         Bounty[]          @relation("user_createdBounties")
+  updatedBounties         Bounty[]          @relation("user_updatedBounties")
+
+
+  @@map("user")
+}
+
+
+model Session {
+  id              String  @id @unique
+  user_id         String
+  active_expires  BigInt
+  idle_expires    BigInt
+  user            User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("session")
+}
+
+model Key {
+  id                String    @id @unique
+  hashed_password   String?
+  user_id           String
+  expires           BigInt?
+  user              User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("key")
+}
+
+model LibrarySystem {
+  id Int @id @default(autoincrement())
+  publicId String @db.VarChar(12)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  shortName String @db.VarChar(25)
+
+  createdById   String
+  createdBy     User      @relation("user_createdLibrarySystems", fields: [createdById], references: [id])
+  updatedById   String
+  updatedBy     User      @relation("user_updatedLibrarySystems", fields: [updatedById], references: [id])
+
+  libraries Library[]
+
+  @@unique([publicId])
+  @@index([publicId, createdById, updatedById])
+}
+
+model Library {
+  id Int @id @default(autoincrement())
+  publicId String  @db.VarChar(12)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  shortName String @db.VarChar(25)
+  pAddress String
+  pCity String
+  pPostalCode String
+  pState String
+  mAddress String
+  mCity String
+  mPostalCode String
+  mState String
+  acceptsVoluteers Boolean @default(false)
+  points Int @default(500)
+
+  librarySystemId Int
+  librarySystem LibrarySystem @relation(fields: [librarySystemId], references: [id])
+
+  createdById   String
+  createdBy     User      @relation("user_createdLibrary", fields: [createdById], references: [id])
+  updatedById   String
+  updatedBy     User      @relation("user_updatedLibrary", fields: [updatedById], references: [id])
+
+  Quests Quest[]
+
+  @@unique([publicId])
+  @@index([librarySystemId, publicId, createdById, updatedById])
+}
+
+model Quest {
+  id Int @id @default(autoincrement())
+  publicId String @db.VarChar(12)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  genre String?
+  completed Boolean @default(false)
+  draft Boolean @default(true)
+  deleted Boolean @default(false)
+
+  libraryId Int
+  library Library @relation(fields: [libraryId], references: [id])
+
+  createdById   String
+  createdBy     User      @relation("user_createdQuests", fields: [createdById], references: [id])
+  updatedById   String
+  updatedBy     User      @relation("user_updatedQuests", fields: [updatedById], references: [id])
+
+  bounties Bounty[]
+
+  @@unique([publicId])
+  @@index([publicId, libraryId, createdById, updatedById])
+}
+
+model Bounty {
+  id Int @id @default(autoincrement())
+  publicId String @db.VarChar(12)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  genre String?
+  author String
+  series String?
+  reward Int
+  completed Boolean @default(false)
+  deleted Boolean @default(false)
+
+  questId Int
+  quest Quest @relation(fields: [questId], references: [id])
+
+  createdById   String
+  createdBy     User      @relation("user_createdBounties", fields: [createdById], references: [id])
+  updatedById   String
+  updatedBy     User      @relation("user_updatedBounties", fields: [updatedById], references: [id])
+
+  @@unique([publicId])
+  @@index([publicId, questId, createdById, updatedById])
+}
