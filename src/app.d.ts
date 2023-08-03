@@ -2,16 +2,16 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
+		interface Error {
+			code: string;
+		}
 		interface Locals {
 			auth: import('lucia').AuthRequest;
 		}
 		// interface PageData {}
 		// interface Platform {}
 	}
-}
 
-declare global {
 	namespace Lucia {
 		type Auth = import('$lib/server/lucia').Auth;
 		type UserAttributes = {
@@ -20,5 +20,6 @@ declare global {
 		type DatabaseSessionAttributes = {};
 	}
 }
+
 
 export {};

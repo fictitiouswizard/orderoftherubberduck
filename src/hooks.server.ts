@@ -10,7 +10,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 import type { HandleServerError } from '@sveltejs/kit';
 
 export const handleError = (({ error, event }) => {
-	console.log(error);
 
     return {
         message: 'Whoops!',
