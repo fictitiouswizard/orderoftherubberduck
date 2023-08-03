@@ -56,12 +56,22 @@ export const actions: Actions = {
 			if(error instanceof Prisma.PrismaClientKnownRequestError) {
 				const primsaError: Prisma.PrismaClientKnownRequestError = error;
 				if(primsaError.code == "P2002") {
-					return fail(400, { issues: [{message: "Username already exists"}]});
+					return fail(400, { issues: [{message: "Username already exists", path: [""], code: z.ZodIssueCode.custom}]});
 				} else {
-					return fail(400, { issues: [{message: "An unknown error has occured. Please try again later."}]});
+					return fail(400, {
+						issues: [{
+							message: "An unknown error has occured. Please try again later.",
+							path: [""], code: z.ZodIssueCode.custom
+						}]
+					});
 				}
 			} else {
-				return fail(400, { issues: [{message: "An unknown error has occured. Please try again later."}]});
+				return fail(400, {
+					issues: [{
+						message: "An unknown error has occured. Please try again later.",
+						path: [""], code: z.ZodIssueCode.custom
+					}]
+				});
 			}
 		}
 

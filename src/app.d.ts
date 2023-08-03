@@ -17,7 +17,6 @@ declare global {
 		type UserAttributes = {
 			username: string;
 		};
-		type DatabaseSessionAttributes = {};
 	}
 }
 
