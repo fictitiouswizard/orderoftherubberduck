@@ -1,1 +1,0 @@
-ALTER TABLE `countries` MODIFY COLUMN `short_name` varchar(255);

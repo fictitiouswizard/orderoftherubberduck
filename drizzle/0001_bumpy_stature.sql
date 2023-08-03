@@ -1,1 +1,0 @@
-ALTER TABLE `countries` ADD `short_name` varchar(256);
