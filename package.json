@@ -14,7 +14,8 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"generate": "drizzle-kit generate:mysql",
-		"migrate": "ts-node --esm migrate/index.ts"
+		"migrate": "ts-node --esm migrate/index.ts",
+		"postinstall": "prisma generate"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

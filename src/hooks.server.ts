@@ -13,7 +13,6 @@ export const handleError = (({ error, event }) => {
 
     return {
         message: 'Whoops!',
-       // code: error?.code ?? 'UNKNOWN'
-        code: "bob"
+        code: error?.code ?? 'UNKNOWN'
     };
 }) satisfies HandleServerError;
