@@ -13,7 +13,15 @@ export const auth = lucia({
 	middleware: sveltekit(),
 	getUserAttributes: (data) => {
 		return {
-			username: data.username
+			username: data.username,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      points: data.points,
+      booksDonated: data.booksDonated,
+      hoursVolunteered: data.hoursVolunteered,
+      dollarsDonated: data.dollarsDonated,
+      anonymous: data.anonymous,
+      active: data.active
 		};
 	}
 });

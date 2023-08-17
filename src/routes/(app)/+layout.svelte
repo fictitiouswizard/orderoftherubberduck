@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '../../app.css';
 	import DuckLogo from './DuckLogo.svelte';
 	import NavItem from './NavItem.svelte';
 	import type { LayoutData } from './$types';
@@ -22,8 +22,8 @@
 				</div>
 			{:else}
 				<div class="float-right">
-					<button>Register</button>
-					<button>Login</button>
+					<a href="/signup">Register</a>
+					<a href="/login">Login</a>
 				</div>
 			{/if}
 		</div>

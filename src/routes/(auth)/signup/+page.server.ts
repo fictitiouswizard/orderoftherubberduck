@@ -43,7 +43,15 @@ export const actions: Actions = {
 					password
 				},
 				attributes: {
-					username
+					username,
+          firstName: "",
+          lastName: "",
+          points: 0,
+          booksDonated: 0,
+          hoursVolunteered: 0,
+          dollarsDonated: 0,
+          anonymous: false,
+          active: true
 				}
 			});
 			const session = await auth.createSession({
@@ -57,6 +65,8 @@ export const actions: Actions = {
 				if(primsaError.code == "P2002") {
 					return fail(400, { issues: [{message: "Username already exists", path: [""], code: z.ZodIssueCode.custom}]});
 				} else {
+          console.log(prismaError);
+          
 					return fail(400, {
 						issues: [{
 							message: "An unknown error has occured. Please try again later.",
@@ -65,6 +75,7 @@ export const actions: Actions = {
 					});
 				}
 			} else {
+        console.log(error) 
 				return fail(400, {
 					issues: [{
 						message: "An unknown error has occured. Please try again later.",
