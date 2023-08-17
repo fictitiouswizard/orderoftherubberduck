@@ -34,8 +34,11 @@ model User {
   updatedQuests           Quest[]           @relation("user_updatedQuests")
   createdBounties         Bounty[]          @relation("user_createdBounties")
   updatedBounties         Bounty[]          @relation("user_updatedBounties")
-
-
+  createdModerators       Moderator[]       @relation("user_createdModerator")
+  updatedModerators       Moderator[]       @relation("user_updatedModerator")
+  
+  moderator Moderator? @relation("user_userModerator")
+    
   @@map("user")
 }
 
@@ -60,6 +63,20 @@ model Key {
 
   @@index([user_id])
   @@map("key")
+}
+
+model Moderator {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String @unique
+  user      User @relation("user_userModerator", fields: [userId], references: [id])
+
+  createdById String
+  updatedById String
+  createdBy User  @relation("user_createdModerator", fields: [createdById], references: [id]) 
+  updatedBy User  @relation("user_updatedModerator", fields: [updatedById], references: [id])
 }
 
 model LibrarySystem {
@@ -112,6 +129,8 @@ model Library {
   @@unique([publicId])
   @@index([librarySystemId, publicId, createdById, updatedById])
 }
+
+
 
 model Quest {
   id Int @id @default(autoincrement())
