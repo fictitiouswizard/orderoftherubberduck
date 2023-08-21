@@ -66,7 +66,7 @@ export const actions: Actions = {
 					return fail(400, { issues: [{message: "Username already exists", path: [""], code: z.ZodIssueCode.custom}]});
 				} else {
           console.log(prismaError);
-          
+
 					return fail(400, {
 						issues: [{
 							message: "An unknown error has occured. Please try again later.",
@@ -75,7 +75,7 @@ export const actions: Actions = {
 					});
 				}
 			} else {
-        console.log(error) 
+        console.log(error)
 				return fail(400, {
 					issues: [{
 						message: "An unknown error has occured. Please try again later.",
