@@ -1,11 +1,11 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import ZodIssues from "$lib/components/ZodIssues.svelte";
-  import "../../../app.css"
-  import { base } from '$app/paths'
+  import "../../../app.css";
+  import { base } from "$app/paths";
 
-  $: backgroundImage = `${base}/librarybackdrop.jpg`
-  $: bgImage = `background-image: url("${backgroundImage}";`
+  $: backgroundImage = `${base}/librarybackdrop.jpg`;
+  $: bgImage = `background-image: url("${backgroundImage}";`;
 
   console.log(backgroundImage);
 
@@ -20,18 +20,18 @@
       Create an account
     </h1>
     <form method="post" use:enhance class="flex flex-col mt-8">
-        <div class="relative">
-          <input
-            id="username"
-            name="username"
-            class="peer border-b-2 px-2 py-3 my-2
+      <div class="relative">
+        <input
+          id="username"
+          name="username"
+          class="peer border-b-2 px-2 py-3 my-2
                    border-gray-400 placeholder-transparent
                    focus:outline-none"
-            placeholder="Username"
-          />
-          <label
-            for="username"
-            class="absolute left-0 -top-3.5
+          placeholder="Username"
+        />
+        <label
+          for="username"
+          class="absolute left-0 -top-3.5
                   text-sm
                   transition-all
                   peer-placeholder-shown:text-base
@@ -40,9 +40,9 @@
                   peer-placeholder-shown:left-2
                   peer-focus:left-0 peer-focus:text-sm peer-focus:-top-3.5
                   peer-focus:text-black"
-          >
-            Username
-          </label>
+        >
+          Username
+        </label>
       </div>
       <div class="relative mt-4">
         <input
@@ -73,7 +73,11 @@
         Register
       </button>
     </form>
+    <div class="mb-3">
+      <a href="/" class="underline text-gray-600">Forgot your password?</a>
+    </div>
   </div>
+
   {#if form?.issues}
     <div class="bg-white text-red-500 my-3 rounded-3xl flex flex-col px-5 py-4">
       <ZodIssues issues={form.issues} />
@@ -82,10 +86,10 @@
 </div>
 
 <style>
-  .backdrop {
-      background-image: url("/images/librarybackdrop.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-  }
+    .backdrop {
+        background-image: url("/images/librarybackdrop.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 </style>
