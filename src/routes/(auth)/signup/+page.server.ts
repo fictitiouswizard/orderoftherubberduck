@@ -61,8 +61,8 @@ export const actions: Actions = {
 			locals.auth.setSession(session);
 		} catch(error) {
 			if(error instanceof Prisma.PrismaClientKnownRequestError) {
-				const primsaError: Prisma.PrismaClientKnownRequestError = error;
-				if(primsaError.code == "P2002") {
+				const prismaError: Prisma.PrismaClientKnownRequestError = error;
+				if(prismaError.code == "P2002") {
 					return fail(400, { issues: [{message: "Username already exists", path: [""], code: z.ZodIssueCode.custom}]});
 				} else {
           console.log(prismaError);
