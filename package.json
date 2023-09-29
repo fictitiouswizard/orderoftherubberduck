@@ -22,6 +22,7 @@
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-vercel": "^3.0.3",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/node-mailjet": "^3.3.9",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"autoprefixer": "^10.4.14",
@@ -53,6 +54,7 @@
 		"lucia": "^2.0.0",
 		"moment": "^2.29.4",
 		"nanoid": "^4.0.2",
+		"node-mailjet": "^6.0.4",
 		"zod": "^3.21.4"
 	}
 }
