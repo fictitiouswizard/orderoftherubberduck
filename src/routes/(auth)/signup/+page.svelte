@@ -28,6 +28,7 @@
                    border-gray-400 placeholder-transparent
                    focus:outline-none"
           placeholder="Username"
+          type="text"
         />
         <label
           for="username"
@@ -43,6 +44,10 @@
         >
           Username
         </label>
+      </div>
+      <div class="relative">
+        <input id="email" name="email" placeholder="Email" type="text" />
+        <label for="email">Email</label>
       </div>
       <div class="relative mt-4">
         <input

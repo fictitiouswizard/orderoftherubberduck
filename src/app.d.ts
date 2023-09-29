@@ -17,6 +17,10 @@ declare global {
 		type UserAttributes = {
 			username: string;
 		};
+		type DatabaseUserAttributes = {
+			email: string;
+			email_verified: boolean;
+		};
 	}
 }
 
