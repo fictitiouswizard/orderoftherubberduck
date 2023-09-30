@@ -45,9 +45,30 @@
           Username
         </label>
       </div>
-      <div class="relative">
-        <input id="email" name="email" placeholder="Email" type="text" />
-        <label for="email">Email</label>
+      <div class="relative mt-4">
+        <input
+          id="email"
+          name="email"
+          class="peer border-b-2 px-2 py-3 my-2
+                  border-gray-400 placeholder-transparent
+                  focus:outline-none"
+          placeholder="Email"
+          type="text"
+        />
+        <label
+          for="email"
+          class="absolute left-0 -top-3.5
+                  text-sm
+                  transition-all
+                  peer-placeholder-shown:text-base
+                  peer-placeholder-shown:text-gray-400
+                  peer-placeholder-shown:top-5
+                  peer-placeholder-shown:left-2
+                  peer-focus:left-0 peer-focus:text-sm peer-focus:-top-3.5
+                  peer-focus:text-black"
+        >
+          Email
+        </label>
       </div>
       <div class="relative mt-4">
         <input

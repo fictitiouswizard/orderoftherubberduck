@@ -3,6 +3,8 @@ import { auth } from '$lib/server/lucia';
 import type { PageServerLoad, Actions } from './$types';
 import { z } from "zod";
 import { Prisma } from '@prisma/client';
+import { generateEmailVerificationToken } from "$lib/server/token";
+import { sendEmailVerificationEmail } from "$lib/server/email";
 
 export const load = (async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -19,7 +21,8 @@ const registerSchema = z.object({
 		{
 			message: "Password must be at least 8 characters long and contain an uppercase letter, lowercase letter, and number"
 		}
-	)
+	),
+	email: z.string().trim().email({message: "Invalid email address"})
 })
 
 export const actions: Actions = {
@@ -33,7 +36,7 @@ export const actions: Actions = {
 			return fail(400, { issues: safeParse.error.issues });
 		}
 
-		const { username, password} = safeParse.data;
+		const { username, password, email} = safeParse.data;
 
 		try {
 			const user = await auth.createUser({
@@ -44,6 +47,8 @@ export const actions: Actions = {
 				},
 				attributes: {
 					username,
+					email,
+					email_verified: false,
           firstName: "",
           lastName: "",
           points: 0,
@@ -59,6 +64,9 @@ export const actions: Actions = {
 				attributes: {}
 			});
 			locals.auth.setSession(session);
+			const token = await generateEmailVerificationToken(user.userId);
+			const status = await sendEmailVerificationEmail(email, token);
+			console.log(status);
 		} catch(error) {
 			if(error instanceof Prisma.PrismaClientKnownRequestError) {
 				const prismaError: Prisma.PrismaClientKnownRequestError = error;

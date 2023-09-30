@@ -14,12 +14,21 @@ declare global {
 
 	namespace Lucia {
 		type Auth = import('$lib/server/lucia').Auth;
-		type UserAttributes = {
-			username: string;
-		};
+		// type UserAttributes = {
+		// 	username: string;
+		// };
 		type DatabaseUserAttributes = {
+			username: string;
 			email: string;
 			email_verified: boolean;
+			firstName: string;
+			lastName: string;
+			points: number;
+			booksDonated: number;
+			hoursVolunteered: number;
+			dollarsDonated: number;
+			anonymous: boolean;
+			active: boolean;
 		};
 	}
 }

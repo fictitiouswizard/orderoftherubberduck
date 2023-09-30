@@ -67,8 +67,8 @@ model Key {
 }
 
 model email_verification_token {
-  id      String
-  expires BigInt @id
+  id      String @id @unique
+  expires BigInt
   user_id String
 }
 
