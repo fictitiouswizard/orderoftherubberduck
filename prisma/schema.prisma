@@ -72,6 +72,12 @@ model email_verification_token {
   user_id String
 }
 
+model password_reset_token {
+  id      String @id @unique
+  expires BigInt
+  user_id String
+}
+
 model Moderator {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
