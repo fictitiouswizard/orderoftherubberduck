@@ -1,14 +1,14 @@
 
-import { PUBLIC_BASE_URL } from "$env/static/public";
-import { MAILJET_API_KEY, MAILJET_SECRET_KEY } from "$env/static/private";
+import pub  from "$env/dynamic/public";
+import priv from "$env/dynamic/private";
 import { Client, SendEmailV3_1  } from "node-mailjet";
 import type { LibraryResponse } from "node-mailjet";
 export const sendEmailVerificationEmail = async (email: string, token: string) => {
-  const verificationUrl = `${PUBLIC_BASE_URL}/verify-email/${token}`;
+  const verificationUrl = `${pub.env.PUBLIC_BASE_URL}/verify-email/${token}`;
   const emailBody = `Please verify your email address by clicking <a href="${verificationUrl}">here</a>.`;
   const mailjet = new Client({
-    apiKey: MAILJET_API_KEY,
-    apiSecret: MAILJET_SECRET_KEY
+    apiKey: priv.env.MAILJET_API_KEY,
+    apiSecret: priv.env.MAILJET_SECRET_KEY
   });
 
   const data: SendEmailV3_1.Body = {
@@ -37,11 +37,11 @@ export const sendEmailVerificationEmail = async (email: string, token: string) =
 }
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetUrl = `${PUBLIC_BASE_URL}/password-reset/${token}`;
+  const resetUrl = `${pub.env.PUBLIC_BASE_URL}/password-reset/${token}`;
   const emailBody = `Please reset your password by clicking <a href="${resetUrl}">here</a>.`;
   const mailjet = new Client({
-    apiKey: MAILJET_API_KEY,
-    apiSecret: MAILJET_SECRET_KEY
+    apiKey: priv.env.MAILJET_API_KEY,
+    apiSecret: priv.env.MAILJET_SECRET_KEY
   });
 
   const data: SendEmailV3_1.Body = {
