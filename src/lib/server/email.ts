@@ -35,3 +35,36 @@ export const sendEmailVerificationEmail = async (email: string, token: string) =
   const { Status } = result.body.Messages[0];
   return Status;
 }
+
+export const sendPasswordResetEmail = async (email: string, token: string) => {
+  const resetUrl = `${PUBLIC_BASE_URL}/password-reset/${token}`;
+  const emailBody = `Please reset your password by clicking <a href="${resetUrl}">here</a>.`;
+  const mailjet = new Client({
+    apiKey: MAILJET_API_KEY,
+    apiSecret: MAILJET_SECRET_KEY
+  });
+
+  const data: SendEmailV3_1.Body = {
+    Messages: [
+      {
+        From: {
+          Email: "no-reply@orderoftherubberduck.com",
+        },
+        To: [
+          {
+           Email: email
+          }
+        ],
+        Subject: "Reset your password",
+        TextPart: "Please reset your password by clicking the following link: " + resetUrl,
+        HTMLPart: emailBody,
+        TrackClicks: SendEmailV3_1.TrackClicks.Disabled,
+        TrackOpens: SendEmailV3_1.TrackOpens.Disabled
+      }
+    ]
+  }
+
+  const result: LibraryResponse<SendEmailV3_1.Response> = await mailjet.post("send", { version: "v3.1" }).request(data);
+  const { Status } = result.body.Messages[0];
+  return Status;
+}
