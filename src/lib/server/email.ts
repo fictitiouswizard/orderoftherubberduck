@@ -1,9 +1,9 @@
 
 import { PUBLIC_BASE_URL } from "$env/static/public";
 import { MAILJET_API_KEY, MAILJET_SECRET_KEY } from "$env/static/private";
-import MJ from "node-mailjet";
 import type { LibraryResponse } from "node-mailjet";
 
+import MJ from "node-mailjet";
 const { Client, SendEmailV3_1 } = MJ
 
 export const sendEmailVerificationEmail = async (email: string, token: string) => {
