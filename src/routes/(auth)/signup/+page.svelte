@@ -2,12 +2,6 @@
   import { enhance } from "$app/forms";
   import ZodIssues from "$lib/components/ZodIssues.svelte";
   import "../../../app.css";
-  import { base } from "$app/paths";
-
-  $: backgroundImage = `${base}/librarybackdrop.jpg`;
-  $: bgImage = `background-image: url("${backgroundImage}";`;
-
-  console.log(backgroundImage);
 
   export let form;
 </script>

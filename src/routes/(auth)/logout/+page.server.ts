@@ -11,13 +11,14 @@ export const actions = {
     default: async ({ locals }) => {
         const session = await locals.auth.validate();
 
+        console.log(session);
+
         if(!session) return fail(401);
 
         await auth.invalidateSession(session.sessionId);
         locals.auth.setSession(null);
 
-        throw redirect(302, "/");
+        throw redirect(302, '/');
 
-        return {};
     }
 } satisfies Actions

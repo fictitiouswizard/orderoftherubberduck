@@ -18,7 +18,9 @@
 		<div class="flow-root">
 			{#if data.loggedIn}
 				<div class="float-right">
-					<button>Logout</button>
+					<form action="/logout" method="post">
+						<button>Logout</button>
+					</form>
 				</div>
 			{:else}
 				<div class="float-right">
